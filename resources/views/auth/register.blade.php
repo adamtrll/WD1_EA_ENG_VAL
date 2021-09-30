@@ -11,35 +11,16 @@
                 <form action="{{ route('auth.register') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="name">{{ __('Full name') }}</label>
-                        <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}">
-                        @if ($errors->has('name'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('name') }}
-                            </div>
-                        @endif
+                        <x-form.input name="name" label="{{ __('Full name') }}" />
                     </div>
                     <div class="mb-3">
-                        <label for="email">{{ __('Email address') }}</label>
-                        <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}">
-                        @if ($errors->has('email'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('email') }}
-                            </div>
-                        @endif
+                        <x-form.input name="email" label="{{ __('Email address') }}" />
                     </div>
                     <div class="mb-3">
-                        <label for="password">{{ __('Password') }}</label>
-                        <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
-                        @if ($errors->has('password'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('password') }}
-                            </div>
-                        @endif
+                        <x-form.input name="password" type="password" label="{{ __('Password') }}" />
                     </div>
                     <div class="mb-3">
-                        <label for="password_confirmation">{{ __('Password confirmation') }}</label>
-                        <input type="password" class="form-control" name="password_confirmation">
+                        <x-form.input name="password" type="password_confirmation" label="{{ __('Password confirmation') }}" />
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
