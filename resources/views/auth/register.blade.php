@@ -20,7 +20,7 @@
                         <x-form.input name="password" type="password" label="{{ __('Password') }}" />
                     </div>
                     <div class="mb-3">
-                        <x-form.input name="password" type="password_confirmation" label="{{ __('Password confirmation') }}" />
+                        <x-form.input name="password_confirmation" type="password" label="{{ __('Password confirmation') }}" />
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
