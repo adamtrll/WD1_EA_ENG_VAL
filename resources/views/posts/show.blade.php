@@ -5,6 +5,6 @@
 <p>{{ $post->author->name }} | {{ $post->topic->name }} | {{ $post->updated_at->diffForHumans() }}</p>
 <p>{{ $post->description }}</p>
 <div>
-    {{ $post->content }}
+    {!! $post->content !!}
 </div>
 @endsection
