@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Image;
 use App\Models\Topic;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 
@@ -34,7 +36,8 @@ class PostController extends Controller
             ->create($request->all());
 
         return redirect()
-            ->route('post.details', $post);
+            ->route('post.edit', $post)
+            ->with('success', __('Post created successfully'));
     }
 
     /**
@@ -56,19 +59,24 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $topics = Topic::orderBy('name')->get();
+        return view('posts.edit')->with(compact('post', 'topics'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PostRequest  $request
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        $post->update($request->except('_token'));
+
+        return redirect()
+            ->route('post.edit', $post)
+            ->with('success', __('Post saved successfully'));
     }
 
     /**
@@ -80,5 +88,40 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function comment(Request $request, Post $post)
+    {
+        $request->validate([
+            'comment' => 'required|min:5',
+        ]);
+
+        $comment = new Comment;
+
+        $comment->user_id = Auth::user()->id;
+        $comment->message = $request->comment;
+
+        $post->comments()->save($comment);
+
+        return back()
+            ->with('success', __('Comment created successfully'));
+    }
+
+    public function uploadImage(Request $request, Post $post)
+    {
+        if (!$request->ajax()) {
+            return abort(404);
+        }
+
+        $image = $request->file('image');
+        $fileID = uniqid();
+        $filename = "posts/{$fileID}.{$image->extension()}";
+
+        Image::make($image)->save(public_path("/uploads/{$filename}"));
+
+        $post->image = $filename;
+        $post->save();
+
+        return response()->json(['image' => $post->image ]);
     }
 }

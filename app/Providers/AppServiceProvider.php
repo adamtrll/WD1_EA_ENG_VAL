@@ -6,6 +6,7 @@ use View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use App\View\Composers\TopicViewComposer;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +29,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         View::composer('*', TopicViewComposer::class);
+
+        Relation::enforceMorphMap([
+            'post' => \App\Models\Post::class,
+            'reply' => \App\Models\Comment::class,
+        ]);
     }
 }
