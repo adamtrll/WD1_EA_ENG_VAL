@@ -12,8 +12,7 @@
 
     <link href="/css/blog.css" rel="stylesheet">
 
-    <meta name="theme-color" content="#7952b3">
-
+    <meta name="theme-color" content="#ffffff">
 
     <style>
       .bd-placeholder-img {

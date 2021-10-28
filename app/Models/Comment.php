@@ -16,4 +16,13 @@ class Comment extends Model
     public function commentable() {
         return $this->morphTo();
     }
+
+    public function replies() {
+        return $this->morphMany(Comment::class, 'commentable')
+            ->orderBy('created_at', 'desc');
+    }
+
+    public function getIsReplyAttribute() {
+        return $this->commentable_type == 'comment';
+    }
 }

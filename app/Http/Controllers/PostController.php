@@ -12,6 +12,10 @@ use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
+    function __construct() {
+        $this->authorizeResource(Post::class, 'post');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -123,5 +127,20 @@ class PostController extends Controller
         $post->save();
 
         return response()->json(['image' => $post->image ]);
+    }
+
+    public function deleteImage()
+    {
+        // todo implement
+    }
+
+    protected function resourceAbilityMap()
+    {
+        $abilityMap = parent::resourceAbilityMap();
+
+        $abilityMap['uploadImage'] = 'update';
+        $abilityMap['deleteImage'] = 'update';
+
+        return $abilityMap;
     }
 }

@@ -16,6 +16,12 @@
                 <span>{{ __('Replies') }}: {{ $post->comments()->count() }}</span>
                 |
                 <span>{{ $post->created_at->diffForHumans() }}</span>
+                @can('update', $post)
+                |
+                <a href="{{ route('post.edit', $post) }}">
+                    {{ __('edit') }}
+                </a>
+                @endcan
             </div>
             <p>{{ $post->description }}</p>
             <p class="mt-auto text-end mb-0">

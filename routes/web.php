@@ -40,4 +40,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/post/{post}/comment', [Controllers\PostController::class, 'comment'])->name('post.comment');
 
     Route::post('/post/{post}/image', [Controllers\PostController::class, 'uploadImage'])->name('post.image');
+
+    Route::post('/comment/{comment}/reply', [Controllers\CommentController::class, 'reply'])->name('comment.reply');
 });
