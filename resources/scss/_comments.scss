@@ -1,0 +1,14 @@
+.comment {
+    &:not(.reply-form-visible) {
+        .replies {
+            form {
+                display: none;
+            }
+        }
+    }
+    &.reply-form-visible {
+        .reply-toggle {
+            display: none;
+        }
+    }
+}

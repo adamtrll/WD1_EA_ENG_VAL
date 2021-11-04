@@ -52,6 +52,6 @@ class User extends Authenticatable
 
     public function getAvatarAttribute() {
         $gravatarHash = md5($this->email);
-        return "https://gravatar.com/avatar/{$gravatarHash}?d=identicon";
+        return "https://gravatar.com/avatar/{$gravatarHash}?d=identicon&s=500";
     }
 }

@@ -40,4 +40,11 @@ class Post extends Model
         }
         return 'https://via.placeholder.com/1500';
     }
+
+    public function getMinutesToReadAttribute()
+    {
+        $wordPerMinute = 200;
+        $noOfWords = count(explode(" ", strip_tags($this->content)));
+        return ceil($noOfWords / $wordPerMinute);
+    }
 }

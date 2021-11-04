@@ -6,11 +6,9 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Blog Template · Bootstrap v5.1</title>
+    <title>{{ config('app.name') }}</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-
-    <link href="/css/blog.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <meta name="theme-color" content="#ffffff">
 
@@ -50,6 +48,7 @@
         </p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/comments.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

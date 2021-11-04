@@ -20,6 +20,9 @@ Route::get('/topic/{topic}', [Controllers\TopicController::class, 'show'])->name
 
 Route::get('/post/{post}', [Controllers\PostController::class, 'show'])->name('post.details');
 
+Route::get('/user/{user}', [Controllers\UserController::class, 'show'])->name('user.details');
+
+
 Route::middleware(['guest'])->group(function () {
     Route::get('/sign-up', [Controllers\Auth\RegisterController::class, 'create'])->name('auth.register');
     Route::post('/sign-up', [Controllers\Auth\RegisterController::class, 'store']);

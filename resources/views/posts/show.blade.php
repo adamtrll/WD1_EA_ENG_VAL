@@ -2,7 +2,17 @@
 
 @section('content')
 <h1 class="display-1">{{ $post->title }}</h1>
-<p>{{ $post->author->name }} | {{ $post->topic->name }} | {{ $post->updated_at->diffForHumans() }}</p>
+<p>
+    <a href="{{ route('user.details', $post->author) }}">
+        {{ $post->author->name }}
+    </a>
+    |
+    <a href="{{ route('topic.details', $post->topic) }}">
+        {{ $post->topic->name }}
+    </a>
+    |
+    {{ $post->updated_at->diffForHumans() }}
+</p>
 <p>{{ $post->description }}</p>
 <div>
     {!! $post->content !!}
