@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -129,9 +130,15 @@ class PostController extends Controller
         return response()->json(['image' => $post->image ]);
     }
 
-    public function deleteImage()
+    public function deleteImage(Post $post)
     {
-        // todo implement
+        unlink(public_path("/uploads/{$post->image}"));
+
+        $post->image = null;
+
+        $post->save();
+
+        return back()->with('success', __('Image deleted successfully'));
     }
 
     protected function resourceAbilityMap()

@@ -19,6 +19,23 @@
                     <img class="rounded-circle" src="{{ $post->author->avatar }}" width="20" alt="{{ $post->author->name }}" />
                     {{ $post->author->name }}
                 </a>
+                @if (Auth::check() && Auth::user() != $post->author)
+                    @if (!Auth::user()->isFollowing($post->author))
+                        <form action="{{ route('user.follow', $post->author) }}" method="POSt">
+                            @csrf
+                            <button class="btn btn-sm btn-primary">
+                                {{ __('Follow') }}
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('user.unfollow', $post->author) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-sm btn-secondary">
+                                {{ __('Unfollow') }}
+                            </button>
+                        </form>
+                    @endif
+                @endif
                 <span>{{ $post->created_at->diffForHumans() }}</span>
                 <span>
                     {{ $post->minutes_to_read }} {{ __('minutes to read') }}

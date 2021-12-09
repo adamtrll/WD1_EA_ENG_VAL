@@ -22,10 +22,18 @@
         paramName: 'image',
         url: '{{ route("post.image", $post) }}',
     })
+
+    myDropzone.on('completed', function() {
+        //todo show uploded image and delete button
+    })
 </script>
 @endpush
 
 @section('content')
+<form action="{{ route('post.image.delete', $post) }}" method="POST">
+    @csrf
+    <input type="submit" id="delete-image" class="d-none">
+</form>
 <form action="{{ route('post.edit', $post) }}" method="POST">
     @csrf
     <div class="d-flex mb-5">
@@ -53,6 +61,9 @@
                 <div class="card-body">
                     @if ($post->has_image)
                         <img class="img-fluid" src="{{ $post->cover_image }}" alt="" />
+                        <label class="btn btn-danger" for="delete-image">
+                            {{ __('Delete cover image') }}
+                        </label>
                     @else
                     <div id="image-upload" class="dropzone"></div>
                     @endif

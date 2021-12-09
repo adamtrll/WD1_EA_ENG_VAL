@@ -50,6 +50,21 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function followers() {
+        return $this->belongsToMany(User::class, 'followers', 'followed_id', 'follower_id')
+            ->withTimestamps();
+    }
+
+    public function followings() {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'followed_id')
+        ->withPivot(['rating'])
+        ->withTimestamps();
+    }
+
+    public function isFollowing(User $user) {
+        return $this->followings()->where('followed_id', $user->id)->count() > 0;
+    }
+
     public function getAvatarAttribute() {
         $gravatarHash = md5($this->email);
         return "https://gravatar.com/avatar/{$gravatarHash}?d=identicon&s=500";
